@@ -22,6 +22,9 @@ pids
 .env.test.local
 .env.production.local
 
+# Allow example env file
+!.env.example
+
 # Build output
 dist/
 build/
