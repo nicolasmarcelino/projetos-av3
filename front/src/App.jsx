@@ -1,35 +1,11 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Routes, Route } from "react-router-dom";
+import ListaProdutos from "./ListaProdutos";
 
 function App() {
-  const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/produtos")
-      .then((response) => {
-        setProdutos(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Erro:", error);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <p>Carregando...</p>;
-
   return (
-    <div>
-      <h1>Produtos disponíveis</h1>
-
-      {produtos.map((produto) => (
-        <div key={produto.id}>
-          <p>{produto.nome} - {produto.preco}</p>
-        </div>
-      ))}
-    </div>
+    <Routes>
+      <Route path="/lista-produtos" element={<ListaProdutos />} />
+    </Routes>
   );
 }
 
