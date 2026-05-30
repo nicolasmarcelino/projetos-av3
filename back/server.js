@@ -43,6 +43,52 @@ app.get('/produtos', async (req, res) => {
   }
 });
 
+app.get('/editar-produto/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const { data, error } = await supabase
+      .from('produto')
+      .select()
+      .eq('id', id)
+      .single(); /* retorna um único objeto */
+
+    if (error) throw error;
+
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+});
+
+app.put("/editar-produto/:id", async (req, res) => {
+  const { id } = req.params;
+  const {nome, preco} = req.body;
+
+  try {
+    const { data, error } = await supabase
+      .from("produto")
+      .update({
+        nome,
+        preco
+      })
+      .eq("id", id)
+      .select()  /* não é necessário, mas retorna o produto após update */
+      .single(); /* retorna o produto atualizado */
+
+    if (error) throw error;
+
+    return res.status(200).json(data);
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message
+    });
+  }
+
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
