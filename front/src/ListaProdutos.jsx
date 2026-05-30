@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "./api";
 
 function ListaProdutos() {
   const [produtos, setProdutos] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/produtos")
+    api
+      .get("/produtos")
       .then((response) => {
         setProdutos(response.data);
-        setLoading(false);
       })
       .catch((error) => {
         console.error("Erro:", error);
+      })
+      .finally(() => {
         setLoading(false);
       });
   }, []);
