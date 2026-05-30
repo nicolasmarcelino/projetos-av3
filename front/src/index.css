@@ -3,3 +3,15 @@
      align-items: center;
      gap: 1rem;
 }
+
+.produto-disponivel {
+     list-style-type: none;
+     display: flex;
+     flex-direction: column;
+     margin: 1rem;
+}
+
+.home-usuario {
+     display: flex;
+     justify-content: space-evenly;
+}
