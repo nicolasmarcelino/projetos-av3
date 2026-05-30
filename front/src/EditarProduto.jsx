@@ -10,32 +10,37 @@ function EditarProduto() {
 
      const { id } = useParams();
 
+     const carregarProduto = async () => {
+          try {
+               setLoading(true);
+
+               const response = await api.get(`/editar-produto/${id}`);
+               console.log(response);
+
+               setProduto(response.data);
+          } catch (error) {
+               console.log(error.response?.data);
+          } finally {
+               setLoading(false);
+          }
+     };
+
      useEffect(() => {
-          api
-               .get(`/editar-produto/${id}`)
-               .then((response) => {
-                    console.log(response)
-                    setProduto(response.data);
-               })
-               .catch((error) => {
-                    console.log(error.response?.data);
-               })
-               .finally(() => {
-                    setLoading(false);
-               });
+          carregarProduto();
      }, [id]);
 
-     const atualizarProduto = () => {
-          api.put(`/editar-produto/${id}`, produto)
-               .then((response) => {
-                    console.log(response)
-                    setMsg("Produto atualizado com sucesso!");
-               })
-               .catch((error) => {
-                    console.log(error.response?.data);
-                    setMsg("Erro ao atualizar produto.");
-               });
+     const atualizarProduto = async () => {
+          try {
+               const response = await api.put(`/editar-produto/${id}`, produto);
+
+               console.log(response);
+               setMsg("Produto atualizado com sucesso!");
+          } catch (error) {
+               console.log(error.response?.data);
+               setMsg("Erro ao atualizar produto.");
+          }
      };
+
 
      if (loading) return <p>Carregando...</p>;
 
