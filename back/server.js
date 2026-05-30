@@ -65,7 +65,7 @@ app.get('/editar-produto/:id', async (req, res) => {
 
 app.put("/editar-produto/:id", async (req, res) => {
   const { id } = req.params;
-  const {nome, preco} = req.body;
+  const { nome, preco } = req.body;
 
   try {
     const { data, error } = await supabase
@@ -88,6 +88,25 @@ app.put("/editar-produto/:id", async (req, res) => {
   }
 
 });
+
+app.delete("/deletar-produto/:id", async (req, res) => {
+  try {
+    const { error } = await supabase
+      .from("produto")
+      .delete()
+      .eq("id", req.params.id)
+
+    if (error) throw error;
+
+    return res.status(204).send();
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message
+    });
+  }
+
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
