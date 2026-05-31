@@ -44,6 +44,7 @@ function EditaProdutos() {
      return (
           <>
                <h1>Produtos disponíveis</h1>
+               <a href="/criar-produto">Adicionar produto</a>
 
                {produtos.map((produto) => (
                     <div key={produto.id} className="item-produto">

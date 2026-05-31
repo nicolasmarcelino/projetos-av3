@@ -115,13 +115,14 @@ app.post('/criar-produto', async (req, res) => {
       .from('produto')
       .insert({ nome, preco })
       .select()
+      .single()
 
     if (error) throw error
 
     return res.status(201).json(data)
   } catch (err) {
     return res.status(500).json({
-      error: err.message
+      message: err.message
     })
   }
 })
