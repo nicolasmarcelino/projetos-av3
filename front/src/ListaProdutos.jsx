@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import Carrinho from "./Carrinho"
+import "./index.css"
 import api from "./api";
 
 function ListaProdutos() {
   const [produtos, setProdutos] = useState([]);
+  const [carrinho, setCarrinho] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,18 +22,34 @@ function ListaProdutos() {
       });
   }, []);
 
+  const adicionarAoCarrinho = (produto) => {
+    setCarrinho(prevCarrinho => [...prevCarrinho, produto]);
+  };
+
   if (loading) return <p>Carregando...</p>;
 
   return (
-    <>
-      <h1>Produtos disponíveis</h1>
+    <div className="home-usuario">
+      <div className="lista-produtos">
+        <h1>Produtos disponíveis</h1>
 
-      {produtos.map((produto) => (
-        <div key={produto.id}>
-          <p>{produto.nome} - {produto.preco}</p>
-        </div>
-      ))}
-    </>
+        <ul>
+          {produtos.map((produto) => (
+            <li className="produto-disponivel" key={produto.id}>
+              <span>
+                {produto.nome} - R${produto.preco}
+              </span>
+
+              <button onClick={() => adicionarAoCarrinho(produto)}>
+                Adicionar ao carrinho
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <Carrinho carrinho={carrinho} setCarrinho={setCarrinho} />
+    </div>
   );
 }
 
