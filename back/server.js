@@ -107,6 +107,24 @@ app.delete("/deletar-produto/:id", async (req, res) => {
 
 });
 
+app.post('/criar-produto', async (req, res) => {
+  const { nome, preco } = req.body
+
+  try {
+    const { data, error } = await supabase
+      .from('produto')
+      .insert({ nome, preco })
+      .select()
+
+    if (error) throw error
+
+    return res.status(201).json(data)
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message
+    })
+  }
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
