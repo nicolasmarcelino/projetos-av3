@@ -26,7 +26,7 @@ function Carrinho({ carrinho }) {
                     <option value="cartao">Cartão</option>
                </select>
                <button onClick={() => {alert(`Pago R$${total} em ${formaPagamento}`)}}>
-                Adicionar ao carrinho
+                Efetuar pagamento
               </button>
           </div>
      )

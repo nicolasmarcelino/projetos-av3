@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
-  timeout: 10000
+  baseURL: "https://projetos-av3-api.onrender.com",
+  timeout: 70000
 });
 
 export default api;
